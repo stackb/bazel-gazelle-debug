@@ -44,11 +44,11 @@ func (*debugLang) Resolve(
 func (*debugLang) CrossResolve(c *config.Config, ix *resolve.RuleIndex, imp resolve.ImportSpec, lang string) []resolve.FindResult {
 	dc := getDebugConfig(c)
 
-	dc.Warn().
+	dc.Debug().
 		Str("resolve", lang).
 		Str("impLang", imp.Lang).
 		Str("import", imp.Imp).
-		Msg("trying to resolve label that provides 'import'")
+		Msg("resolving label that provides 'import'")
 
 	return nil
 }
