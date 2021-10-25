@@ -34,9 +34,6 @@ func (dl *debugLang) GenerateRules(args language.GenerateArgs) language.Generate
 			Msg("generated rule")
 	}
 
-	dc.increment()
-	// dc.done(args.Rel)
-
 	current := time.Now()
 	diff := current.Sub(dl.prev)
 	elapsed := current.Sub(dl.start)
@@ -49,20 +46,6 @@ func (dl *debugLang) GenerateRules(args language.GenerateArgs) language.Generate
 			Int("rule-count", len(args.OtherGen)).
 			Int("file-count", len(args.RegularFiles)).
 			Msgf("%s: slow (%s)", elapsed.Round(time.Second), diff.Round(time.Second))
-	}
-
-	if args.Rel == "" {
-		go func() {
-			time.Sleep(0)
-			dc.Error().Msg("")
-			dc.Error().Msg(`
-This is taking longer than expected...
-
-A common cause is gazelle failing to locally resolve a golang package.
-For example, an importpath like 'github.com/robinhoodmarkets/rh/i/dont/exist will 
-trigger gazelle to clone the monorepo again, only to discover 
-`)
-		}()
 	}
 
 	return language.GenerateResult{}

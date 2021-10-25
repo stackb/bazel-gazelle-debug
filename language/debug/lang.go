@@ -4,9 +4,10 @@ import (
 	"time"
 
 	"github.com/bazelbuild/bazel-gazelle/language"
-	"github.com/vbauerster/mpb/v7"
 )
 
+// DebugLangName is the name if this extension.  It is public in case someone
+// wanted to refer to it formally.
 const DebugLangName = "debug"
 
 // NewLanguage initializes a new extension satisfies the language.Language
@@ -17,9 +18,10 @@ func NewLanguage() language.Language {
 
 // debugLang implements language.Language.
 type debugLang struct {
-	start    time.Time
-	prev     time.Time
-	progress *mpb.Progress
+	// start marks the time when the RegisterFlags function was called.
+	start time.Time
+	// prev marks the time when the previous GenerateRules function was called.
+	prev time.Time
 }
 
 // Name returns the name of the language. This should be a prefix of the kinds
