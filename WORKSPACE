@@ -1,4 +1,4 @@
-workspace(name = "com_github_stackb_bazel_gazelle_debug")
+workspace(name = "build_stack_bazel_gazelle_debug")
 
 load("//:workspace_deps.bzl", "workspace_deps")
 
