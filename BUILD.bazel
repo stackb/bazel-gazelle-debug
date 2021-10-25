@@ -2,7 +2,7 @@ load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
 # gazelle:prefix github.com/stackb/bazel-gazelle-debug
-# gazelle:log_level info
+# gazelle:log_level debug
 # gazelle:show_total_elapsed_time_info_messages true
 # gazelle:generaterules_slow_warn_duration 1ms
 

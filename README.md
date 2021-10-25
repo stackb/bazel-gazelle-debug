@@ -1,9 +1,9 @@
-$ bazel-gazelle-debug
+# bazel-gazelle-debug
 
 A [gazelle](https://github.com/bazelbuild/bazel-gazelle) extension that helps
 debug what gazelle is doing.
 
-# Usage
+## Usage
 
 ```python
 load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
@@ -76,6 +76,6 @@ Here's the output of `bazel run //:gazelle` with `gazelle:log_level debug` and
 ```
 
 
-# Dependencies
+## Dependencies
 
 Other than gazelle itself, this package requires [github.com/rs/zerolog](https://github.com/rs/zerolog).
