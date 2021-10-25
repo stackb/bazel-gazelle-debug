@@ -23,7 +23,10 @@ func (dl *debugLang) GenerateRules(args language.GenerateArgs) language.Generate
 	dc := getDebugConfig(args.Config)
 
 	for _, f := range args.RegularFiles {
-		dc.Debug().Str("file", f).Msg("read dir")
+		dc.Debug().
+			Str("file", f).
+			Str("dir", args.Rel).
+			Msg("read dir")
 	}
 
 	for _, r := range args.OtherGen {
@@ -34,18 +37,40 @@ func (dl *debugLang) GenerateRules(args language.GenerateArgs) language.Generate
 			Msg("generated rule")
 	}
 
+	for _, r := range args.OtherEmpty {
+		dc.Trace().
+			Str("name", r.Name()).
+			Str("kind", r.Kind()).
+			Stringer("label", label.New("", args.Rel, r.Name())).
+			Msg("empty rule")
+	}
+
 	current := time.Now()
 	diff := current.Sub(dl.prev)
 	elapsed := current.Sub(dl.start)
 	dl.prev = current
 
-	if diff.Milliseconds() > 1000 {
+	if dc.generaterulesSlowWarnDuration != 0 && diff > dc.generaterulesSlowWarnDuration {
 		dc.Warn().
-			Str("pkg", label.New("", args.Rel, "all").String()).
+			Str("dir", args.Rel).
 			Stringer("t", diff).
-			Int("rule-count", len(args.OtherGen)).
-			Int("file-count", len(args.RegularFiles)).
-			Msgf("%s: slow (%s)", elapsed.Round(time.Second), diff.Round(time.Second))
+			Int("total-rules", len(args.OtherGen)).
+			Int("total-files", len(args.RegularFiles)).
+			Msgf("slow %s", diff.Round(time.Millisecond))
+	}
+
+	dc.Debug().
+		Str("label", label.New("", args.Rel, "all").String()).
+		Int("rule-count", len(args.OtherGen)).
+		Int("file-count", len(args.RegularFiles)).
+		Msgf("generated in %s", diff.Round(time.Millisecond))
+
+	if dc.showTotalElapsedTimeMessages {
+		dc.Info().
+			Str("elapsed", elapsed.Round(time.Millisecond).String()).
+			Str("dir", args.Rel).
+			Stringer("t", elapsed).
+			Msgf("time")
 	}
 
 	return language.GenerateResult{}

@@ -2,6 +2,7 @@ package debug
 
 import (
 	"os"
+	"time"
 
 	"github.com/bazelbuild/bazel-gazelle/config"
 	"github.com/rs/zerolog"
@@ -31,10 +32,15 @@ func newDebugConfig() *debugConfig {
 // debugConfig is the config implementation which embeds a logger
 type debugConfig struct {
 	zerolog.Logger
+
+	generaterulesSlowWarnDuration time.Duration
+	showTotalElapsedTimeMessages  bool
 }
 
 func (c *debugConfig) clone() *debugConfig {
 	return &debugConfig{
-		Logger: c.Logger.With().Logger(),
+		Logger:                        c.Logger.With().Logger(),
+		generaterulesSlowWarnDuration: c.generaterulesSlowWarnDuration,
+		showTotalElapsedTimeMessages:  c.showTotalElapsedTimeMessages,
 	}
 }
