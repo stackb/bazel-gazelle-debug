@@ -6,6 +6,25 @@ debug what gazelle is doing.
 ## Usage
 
 ```python
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Branch: master
+# Commit: 66315dd31d70f2e03d7dfaa310f4d549be6522e4
+# Date: 2021-10-25 18:13:58 +0000 UTC
+# URL: https://github.com/stackb/bazel-gazelle-debug/commit/66315dd31d70f2e03d7dfaa310f4d549be6522e4
+#
+# Update ws name
+# Size: 14361 (14 kB)
+http_archive(
+    name = "build_stack_bazel_gazelle_debug",
+    sha256 = "94abd91ca9e9a9950a84cdb3b6e4b3b033c2a5f3ea6b77acd51f7f7da3dbc69c",
+    strip_prefix = "bazel-gazelle-debug-66315dd31d70f2e03d7dfaa310f4d549be6522e4",
+    urls = ["https://github.com/stackb/bazel-gazelle-debug/archive/66315dd31d70f2e03d7dfaa310f4d549be6522e4.tar.gz"],
+)
+```
+
+
+```python
 load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
@@ -20,7 +39,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
 gazelle_binary(
     name = "gazelle-debug",
-    languages = DEFAULT_LANGUAGES + ["//language/debug"],
+    languages = DEFAULT_LANGUAGES + ["@build_stack_bazel_gazelle_debug//language/debug"],
 )
 
 gazelle(
