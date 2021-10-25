@@ -11,13 +11,7 @@ def fetch_go_deps():
         sum = "h1:/hemPrYIhOhy8zYrNj+069zDB68us2sMGsfkFJO0iZs=",
         version = "v0.0.0-20190523083050-ea95bdfd59fc",
     )
-    go_repository(
-        name = "com_github_acarl005_stripansi",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/acarl005/stripansi",
-        sum = "h1:licZJFw2RwpHMqeKTCYkitsPqHNxTmd4SNR5r94FGM8=",
-        version = "v0.0.0-20180116102854-5a71ef0e047d",
-    )
+
     go_repository(
         name = "com_github_bazelbuild_bazel_gazelle",
         build_file_proto_mode = "disable_global",
@@ -158,20 +152,7 @@ def fetch_go_deps():
         sum = "h1:BKbKCqvP6I+rmFHt06ZmyQtvB8xAkWdhFyr0ZUNZcxQ=",
         version = "v0.5.6",
     )
-    go_repository(
-        name = "com_github_karrick_godirwalk",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/karrick/godirwalk",
-        sum = "h1:DynhcF+bztK8gooS0+NDJFrdNZjJ3gzVzC545UNA9iw=",
-        version = "v1.16.1",
-    )
-    go_repository(
-        name = "com_github_mattn_go_runewidth",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/mattn/go-runewidth",
-        sum = "h1:lTGmDsbAYt5DmK6OnoV7EuIF1wEIFAcxld6ypU4OSgU=",
-        version = "v0.0.13",
-    )
+
     go_repository(
         name = "com_github_pelletier_go_toml",
         build_file_proto_mode = "disable_global",
@@ -200,13 +181,7 @@ def fetch_go_deps():
         sum = "h1:gQz4mCbXsO+nc9n1hCxHcGA3Zx3Eo+UHZoInFGUIXNM=",
         version = "v0.0.0-20190812154241-14fe0d1b01d4",
     )
-    go_repository(
-        name = "com_github_rivo_uniseg",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/rivo/uniseg",
-        sum = "h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=",
-        version = "v0.2.0",
-    )
+
     go_repository(
         name = "com_github_rs_xid",
         build_file_proto_mode = "disable_global",
@@ -221,20 +196,7 @@ def fetch_go_deps():
         sum = "h1:Rj7XygbUHKUlDPcVdoLyR91fJBsduXj5fRxyqIQj/II=",
         version = "v1.25.0",
     )
-    go_repository(
-        name = "com_github_vbauerster_mpb_v7",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/vbauerster/mpb/v7",
-        sum = "h1:vtUEUfQHmNeJETyF4AcRCOV6RC4wqFwNORy52UMXPbQ=",
-        version = "v7.1.5",
-    )
-    go_repository(
-        name = "com_github_vividcortex_ewma",
-        build_file_proto_mode = "disable_global",
-        importpath = "github.com/VividCortex/ewma",
-        sum = "h1:f58SaIzcDXrSy3kWaHNvuJgJ3Nmz59Zji6XoJR/q1ow=",
-        version = "v1.2.0",
-    )
+
     go_repository(
         name = "com_github_yuin_goldmark",
         build_file_proto_mode = "disable_global",

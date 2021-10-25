@@ -20,10 +20,6 @@ go_library(
         "@bazel_gazelle//repo:go_default_library",
         "@bazel_gazelle//resolve:go_default_library",
         "@bazel_gazelle//rule:go_default_library",
-        "@com_github_bmatcuk_doublestar//:doublestar",
-        "@com_github_karrick_godirwalk//:godirwalk",
         "@com_github_rs_zerolog//:zerolog",
-        "@com_github_vbauerster_mpb_v7//:mpb",
-        "@com_github_vbauerster_mpb_v7//decor",
     ],
 )
