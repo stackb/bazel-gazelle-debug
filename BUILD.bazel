@@ -1,0 +1,32 @@
+load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
+# gazelle:prefix github.com/stackb/bazel-gazelle-debug
+
+gazelle_binary(
+    name = "gazelle-debug",
+    languages = DEFAULT_LANGUAGES + ["//language/debug"],
+)
+
+gazelle(
+    name = "gazelle",
+    gazelle = "//:gazelle-debug",
+)
+
+# Convenience target
+# See http://go/rh/bazel/go#updating-go-dependencies and
+# https://github.com/bazelbuild/bazel-gazelle#update-repos for more info
+gazelle(
+    name = "update_go_deps",
+    args = [
+        "-from_file=go.mod",
+        "-to_macro=go_deps.bzl%fetch_go_deps",
+        "-build_file_proto_mode=disable_global",
+        "-prune=true",
+    ],
+    command = "update-repos",
+)
+
+buildifier(
+    name = "buildifier",
+)
