@@ -3,6 +3,8 @@ package debug
 import (
 	"flag"
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/bazelbuild/bazel-gazelle/config"
@@ -17,8 +19,22 @@ func (dl *debugLang) RegisterFlags(fs *flag.FlagSet, cmd string, c *config.Confi
 	dc := newDebugConfig()
 	c.Exts[DebugLangName] = dc
 
-	dl.start = time.Now()
-	dl.prev = time.Now()
+	// check for env vars
+	if logLevel, ok := os.LookupEnv("GAZELLE_LOG_LEVEL"); ok {
+		level, err := zerolog.ParseLevel(logLevel)
+		if err != nil {
+			log.Fatalf("GAZELLE_LOG_LEVEL: %v", err)
+		} else {
+			dc.Logger = dc.Logger.Level(level)
+		}
+	}
+	if progress, ok := os.LookupEnv("GAZELLE_PROGRESS"); ok {
+		dc.showTotalElapsedTimeMessages = (progress == "true" || progress == "1")
+	}
+
+	now := time.Now()
+	dl.start = now
+	dl.prev = now
 }
 
 func (*debugLang) CheckFlags(fs *flag.FlagSet, c *config.Config) error {
@@ -36,7 +52,7 @@ func (*debugLang) CheckFlags(fs *flag.FlagSet, c *config.Config) error {
 }
 
 func (*debugLang) KnownDirectives() []string {
-	return []string{"log_level", "generaterules_slow_warn_duration", "show_total_elapsed_time_info_messages"}
+	return []string{"log_level", "generaterules_slow_warn_duration", "progress"}
 }
 
 // Configure implements config.Configurer
@@ -66,7 +82,7 @@ func (dl *debugLang) Configure(c *config.Config, rel string, f *rule.File) {
 				} else {
 					dc.Logger = dc.Logger.Level(level)
 				}
-			case "show_total_elapsed_time_info_messages":
+			case "progress":
 				switch d.Value {
 				case "true":
 					dc.showTotalElapsedTimeMessages = true
