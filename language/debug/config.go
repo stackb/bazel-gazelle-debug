@@ -3,6 +3,7 @@ package debug
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -22,19 +23,18 @@ func (dl *debugLang) RegisterFlags(fs *flag.FlagSet, cmd string, c *config.Confi
 	if logLevel, ok := os.LookupEnv("GAZELLE_LOG_LEVEL"); ok {
 		level, err := zerolog.ParseLevel(logLevel)
 		if err != nil {
-			fmt.Printf("warning: bad log_level: %v", err)
+			log.Fatalf("GAZELLE_LOG_LEVEL: %v", err)
 		} else {
 			dc.Logger = dc.Logger.Level(level)
 		}
 	}
 	if progress, ok := os.LookupEnv("GAZELLE_PROGRESS"); ok {
-		if progress == "true" || progress == "1" {
-			dc.showTotalElapsedTimeMessages = true
-		}
+		dc.showTotalElapsedTimeMessages = (progress == "true" || progress == "1")
 	}
 
-	dl.start = time.Now()
-	dl.prev = time.Now()
+	now := time.Now()
+	dl.start = now
+	dl.prev = now
 }
 
 func (*debugLang) CheckFlags(fs *flag.FlagSet, c *config.Config) error {
