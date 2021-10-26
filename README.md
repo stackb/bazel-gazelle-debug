@@ -32,7 +32,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 # gazelle:log_level debug
 
 # --- show summary of total time on .Info ---
-# gazelle:show_total_elapsed_time_info_messages true
+# gazelle:progress true
 
 # --- warn about packages that take more than 1s to generate ---
 # gazelle:generaterules_slow_warn_duration 1s
@@ -52,7 +52,7 @@ Here's the output of `bazel run //:gazelle` with `gazelle:log_level debug` and
 `gazelle:generaterules_slow_warn_duration 1ms` on this repo:
 
 ```
-11:50AM DBG configuring directive dir= key=show_total_elapsed_time_info_messages lang=debug value=true
+11:50AM DBG configuring directive dir= key=progress lang=debug value=true
 11:50AM DBG configuring directive dir= key=generaterules_slow_warn_duration lang=debug value=1ms
 11:50AM DBG visiting dir=language lang=debug
 11:50AM DBG visiting dir=language/debug lang=debug
@@ -93,6 +93,11 @@ Here's the output of `bazel run //:gazelle` with `gazelle:log_level debug` and
 11:50AM DBG resolving label that provides 'import' impLang=go import=github.com/bazelbuild/bazel-gazelle/rule lang=debug resolve=go
 11:50AM DBG resolving label that provides 'import' impLang=go import=github.com/rs/zerolog lang=debug resolve=go
 ```
+
+## Environment Variables
+
+To change the root log level and/or enable progress, use
+`GAZELLE_LOG_LEVEL=debug` and or `GAZELLE_PROGRESS=true`.
 
 
 ## Dependencies
